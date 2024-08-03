@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UnitReportController;
+use App\Http\Controllers\InstallationReportController;
+use App\Http\Controllers\NewsReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('reports', ReportController::class)->middleware('auth');
+Route::resource('unit_reports', UnitReportController::class);
+Route::resource('installation_reports', InstallationReportController::class);
+Route::resource('news_reports', NewsReportController::class);
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

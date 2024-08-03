@@ -31,9 +31,6 @@ class RolePermissionSeeder extends Seeder
         $roleComandante = Role::firstOrCreate(['name' => 'comandante']);
         $roleComandante->syncPermissions(Permission::all());
 
-        $roleBombero = Role::firstOrCreate(['name' => 'bombero']);
-        $roleBombero->syncPermissions(['crear reportes', 'ver reportes']);
-
         $roleGeneral = Role::firstOrCreate(['name' => 'usuario general']);
         $roleGeneral->syncPermissions(['ver reportes']);
     }
