@@ -58,7 +58,7 @@
     <div class="container">
         <!-- Header con el logo y título -->
         <div class="header">
-        <img src="{{ asset('storage/' . 'images/logo.png') }}" >
+        <img src="{{ asset('storage/images/logo.png') }}" >
             <h1>Parte de Novedades</h1>
         </div>
 
