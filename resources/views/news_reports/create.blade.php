@@ -21,39 +21,17 @@
         <!-- Unidades -->
         <div class="form-group">
             <label for="units">Unidades Involucradas:</label>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit13" value="Unidad 13" {{ in_array('Unidad 13', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit13">Unidad 13</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit27" value="Unidad 27" {{ in_array('Unidad 27', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit27">Unidad 27</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit02" value="Unidad 02" {{ in_array('Unidad 02', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit02">Unidad 02</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit34" value="Unidad 34" {{ in_array('Unidad 34', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit34">Unidad 34</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit03" value="Unidad 03" {{ in_array('Unidad 03', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit03">Unidad 03</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit38" value="Unidad 38" {{ in_array('Unidad 38', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit38">Unidad 38</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit14" value="Unidad 14" {{ in_array('Unidad 14', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit14">Unidad 14</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="units[]" id="unit39" value="Unidad 39" {{ in_array('Unidad 39', old('units', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="unit39">Unidad 39</label>
-            </div>
-            <!-- Puedes añadir más unidades si es necesario -->
+            <select name="units[]" id="units" class="form-control select2 @error('units') is-invalid @enderror" multiple required>
+                <option value="Unidad 13" {{ in_array('Unidad 13', old('units', [])) ? 'selected' : '' }}>Unidad 13</option>
+                <option value="Unidad 27" {{ in_array('Unidad 27', old('units', [])) ? 'selected' : '' }}>Unidad 27</option>
+                <option value="Unidad 02" {{ in_array('Unidad 02', old('units', [])) ? 'selected' : '' }}>Unidad 02</option>
+                <option value="Unidad 34" {{ in_array('Unidad 34', old('units', [])) ? 'selected' : '' }}>Unidad 34</option>
+                <option value="Unidad 03" {{ in_array('Unidad 03', old('units', [])) ? 'selected' : '' }}>Unidad 03</option>
+                <option value="Unidad 38" {{ in_array('Unidad 38', old('units', [])) ? 'selected' : '' }}>Unidad 38</option>
+                <option value="Unidad 14" {{ in_array('Unidad 14', old('units', [])) ? 'selected' : '' }}>Unidad 14</option>
+                <option value="Unidad 39" {{ in_array('Unidad 39', old('units', [])) ? 'selected' : '' }}>Unidad 39</option>
+                <!-- Puedes añadir más unidades si es necesario -->
+            </select>
             @error('units')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -75,63 +53,23 @@
         <!-- Personal involucrado -->
         <div class="form-group">
             <label for="personnel">Personal Involucrado:</label>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="antonio_gamez" value="Antonio Gámez" {{ in_array('Antonio Gámez', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="antonio_gamez">Antonio Gámez</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="pablo_sanchez" value="Pablo Sánchez" {{ in_array('Pablo Sánchez', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="pablo_sanchez">Pablo Sánchez</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="roman_sanchez" value="Román Sánchez" {{ in_array('Román Sánchez', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="roman_sanchez">Román Sánchez</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="javier_castillo" value="Javier Castillo" {{ in_array('Javier Castillo', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="javier_castillo">Javier Castillo</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="fernando_armenta" value="Fernando Armenta" {{ in_array('Fernando Armenta', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="fernando_armenta">Fernando Armenta</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="alexis_gamez" value="Alexis Gámez" {{ in_array('Alexis Gámez', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="alexis_gamez">Alexis Gámez</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="josue_betancourt" value="Josué Betancourt" {{ in_array('Josué Betancourt', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="josue_betancourt">Josué Betancourt</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="abraham_ventura" value="Abraham Ventura" {{ in_array('Abraham Ventura', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="abraham_ventura">Abraham Ventura</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="aurelio_valenzuela" value="Aurelio Valenzuela" {{ in_array('Aurelio Valenzuela', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="aurelio_valenzuela">Aurelio Valenzuela</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="ary_mendoza" value="Ary Mendoza" {{ in_array('Ary Mendoza', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="ary_mendoza">Ary Mendoza</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="guadalupe_armenta" value="Guadalupe Armenta" {{ in_array('Guadalupe Armenta', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="guadalupe_armenta">Guadalupe Armenta</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="ivan_millan" value="Iván Millán" {{ in_array('Iván Millán', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="ivan_millan">Iván Millán</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="emanuel_nunez" value="Emanuel Núñez" {{ in_array('Emanuel Núñez', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="emanuel_nunez">Emanuel Núñez</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="personnel[]" id="martin_venegas" value="Martín Venegas" {{ in_array('Martín Venegas', old('personnel', [])) ? 'checked' : '' }}>
-                <label class="form-check-label" for="martin_venegas">Martín Venegas</label>
-            </div>
-            <!-- Puedes añadir más personal si es necesario -->
+            <select name="personnel[]" id="personnel" class="form-control select2 @error('personnel') is-invalid @enderror" multiple required>
+                <option value="Antonio Gámez" {{ in_array('Antonio Gámez', old('personnel', [])) ? 'selected' : '' }}>Antonio Gámez</option>
+                <option value="Pablo Sánchez" {{ in_array('Pablo Sánchez', old('personnel', [])) ? 'selected' : '' }}>Pablo Sánchez</option>
+                <option value="Román Sánchez" {{ in_array('Román Sánchez', old('personnel', [])) ? 'selected' : '' }}>Román Sánchez</option>
+                <option value="Javier Castillo" {{ in_array('Javier Castillo', old('personnel', [])) ? 'selected' : '' }}>Javier Castillo</option>
+                <option value="Fernando Armenta" {{ in_array('Fernando Armenta', old('personnel', [])) ? 'selected' : '' }}>Fernando Armenta</option>
+                <option value="Alexis Gámez" {{ in_array('Alexis Gámez', old('personnel', [])) ? 'selected' : '' }}>Alexis Gámez</option>
+                <option value="Josué Betancourt" {{ in_array('Josué Betancourt', old('personnel', [])) ? 'selected' : '' }}>Josué Betancourt</option>
+                <option value="Abraham Ventura" {{ in_array('Abraham Ventura', old('personnel', [])) ? 'selected' : '' }}>Abraham Ventura</option>
+                <option value="Aurelio Valenzuela" {{ in_array('Aurelio Valenzuela', old('personnel', [])) ? 'selected' : '' }}>Aurelio Valenzuela</option>
+                <option value="Ary Mendoza" {{ in_array('Ary Mendoza', old('personnel', [])) ? 'selected' : '' }}>Ary Mendoza</option>
+                <option value="Guadalupe Armenta" {{ in_array('Guadalupe Armenta', old('personnel', [])) ? 'selected' : '' }}>Guadalupe Armenta</option>
+                <option value="Iván Millán" {{ in_array('Iván Millán', old('personnel', [])) ? 'selected' : '' }}>Iván Millán</option>
+                <option value="Emanuel Núñez" {{ in_array('Emanuel Núñez', old('personnel', [])) ? 'selected' : '' }}>Emanuel Núñez</option>
+                <option value="Martín Venegas" {{ in_array('Martín Venegas', old('personnel', [])) ? 'selected' : '' }}>Martín Venegas</option>
+                <!-- Puedes añadir más personal si es necesario -->
+            </select>
             @error('personnel')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -171,7 +109,6 @@
                 </span>
             @enderror
         </div>
-
         <!-- Otros -->
         <div class="form-group">
             <label for="others">Otros:</label>

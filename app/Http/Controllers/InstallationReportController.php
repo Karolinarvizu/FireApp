@@ -11,6 +11,15 @@ class InstallationReportController extends Controller
     {
         $searchDate = $request->input('search_date');
 
+        if ($searchDate) {
+            // Convertir la fecha a formato Y-m-d para la búsqueda
+            try {
+                $searchDate = \Carbon\Carbon::createFromFormat('d/m/Y', $searchDate)->format('Y-m-d');
+            } catch (\Exception $e) {
+                $searchDate = null; // Manejar cualquier error de formato aquí
+            }
+        }
+
         $installationReports = InstallationReport::with('user')
             ->when($searchDate, function ($query) use ($searchDate) {
                 return $query->where('date', $searchDate);

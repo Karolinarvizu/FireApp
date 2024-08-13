@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NewsReport;
+use PDF;
+
 
 class NewsReportController extends Controller
 {
@@ -69,7 +71,7 @@ class NewsReportController extends Controller
         NewsReport::create($validatedData);
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('news_reports.index')->with('success', 'Reporte de Noticias creado exitosamente');
+        return redirect()->route('news_reports.index')->with('success', 'Reporte creado exitosamente');
     }
 
     /**
@@ -117,7 +119,7 @@ class NewsReportController extends Controller
         $newsReport->update($validatedData);
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('news_reports.index')->with('success', 'Reporte de Novedades actualizado exitosamente');
+        return redirect()->route('news_reports.index')->with('success', 'Reporte actualizado exitosamente');
     }
 
     /**
@@ -128,6 +130,15 @@ class NewsReportController extends Controller
         $newsReport->delete();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('news_reports.index')->with('success', 'Reporte de Novedades eliminado exitosamente');
+        return redirect()->route('news_reports.index')->with('success', 'Reporte eliminado exitosamente');
     }
+
+    public function downloadPDF(NewsReport $newsReport)
+    {
+        $commanderName = "Ángel Antonio Gámez Navarro"; 
+
+        $pdf = PDF::loadView('documento', compact('newsReport', 'commanderName'));
+        return $pdf->download('reporte_novedades.pdf');
+    }
+
 }

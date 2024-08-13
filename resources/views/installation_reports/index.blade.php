@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Lista de Reportes de Instalaciones</h1>
+    <h1>Reportes de Instalaciones</h1>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -13,7 +13,7 @@
     <form action="{{ route('installation_reports.index') }}" method="GET" class="mb-3">
         <div class="form-group">
             <label for="search_date">Buscar por Fecha:</label>
-            <input type="date" id="search_date" name="search_date" class="form-control" value="{{ old('search_date', $searchDate) }}">
+            <input type="date" id="search_date" name="search_date" class="form-control" value="{{ old('search_date', $searchDate ? \Carbon\Carbon::parse($searchDate)->format('Y-m-d') : '') }}">
         </div>
         <button type="submit" class="btn btn-secondary">Buscar</button>
     </form>
@@ -34,7 +34,7 @@
             @foreach($installationReports as $installationReport)
             <tr>
                 <td>{{ $installationReport->id }}</td>
-                <td>{{ $installationReport->date }}</td>
+                <td>{{ \Carbon\Carbon::parse($installationReport->date)->format('d/m/Y') }}</td>
                 <td>
                     @can('ver reportes')
                     <a href="{{ route('installation_reports.show', $installationReport->id) }}" class="btn btn-info btn-sm">Ver</a>
@@ -58,3 +58,5 @@
     </table>
 </div>
 @endsection
+
+

@@ -28,6 +28,23 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('unit_reports', UnitReportController::class);
 Route::resource('installation_reports', InstallationReportController::class);
 Route::resource('news_reports', NewsReportController::class);
+Route::get('news_reports/{newsReport}/download-pdf', [NewsReportController::class, 'downloadPDF'])->name('news_reports.download_pdf');
+Route::get('storage/images/{filename}', function ($filename) {
+    $path = storage_path('app/public/images/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header('Content-Type', $type);
+
+    return $response;
+});
+
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

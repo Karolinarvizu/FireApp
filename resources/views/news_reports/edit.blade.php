@@ -22,12 +22,11 @@
         <!-- Unidades -->
         <div class="form-group">
             <label for="units">Unidades Involucradas:</label>
-            @foreach(['Unidad 13', 'Unidad 27', 'Unidad 02', 'Unidad 34', 'Unidad 03', 'Unidad 38', 'Unidad 14', 'Unidad 39'] as $unit)
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="units[]" id="{{ $unit }}" value="{{ $unit }}" {{ in_array($unit, old('units', $newsReport->units)) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="{{ $unit }}">{{ $unit }}</label>
-                </div>
-            @endforeach
+            <select name="units[]" id="units" class="form-control select2 @error('units') is-invalid @enderror" multiple required>
+                @foreach(['Unidad 13', 'Unidad 27', 'Unidad 02', 'Unidad 34', 'Unidad 03', 'Unidad 38', 'Unidad 14', 'Unidad 39'] as $unit)
+                    <option value="{{ $unit }}" {{ in_array($unit, old('units', $newsReport->units)) ? 'selected' : '' }}>{{ $unit }}</option>
+                @endforeach
+            </select>
             @error('units')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -49,12 +48,11 @@
         <!-- Personal involucrado -->
         <div class="form-group">
             <label for="personnel">Personal Involucrado:</label>
-            @foreach(['Antonio Gámez', 'Pablo Sánchez', 'Román Sánchez', 'Javier Castillo', 'Fernando Armenta', 'Alexis Gámez', 'Josué Betancourt', 'Abraham Ventura', 'Aurelio Valenzuela', 'Ary Mendoza', 'Guadalupe Armenta', 'Iván Millán', 'Emanuel Núñez', 'Martín Venegas'] as $person)
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="personnel[]" id="{{ $person }}" value="{{ $person }}" {{ in_array($person, old('personnel', $newsReport->personnel)) ? 'checked' : '' }}>
-                    <label class="form-check-label" for="{{ $person }}">{{ $person }}</label>
-                </div>
-            @endforeach
+            <select name="personnel[]" id="personnel" class="form-control select2 @error('personnel') is-invalid @enderror" multiple required>
+                @foreach(['Antonio Gámez', 'Pablo Sánchez', 'Román Sánchez', 'Javier Castillo', 'Fernando Armenta', 'Alexis Gámez', 'Josué Betancourt', 'Abraham Ventura', 'Aurelio Valenzuela', 'Ary Mendoza', 'Guadalupe Armenta', 'Iván Millán', 'Emanuel Núñez', 'Martín Venegas'] as $person)
+                    <option value="{{ $person }}" {{ in_array($person, old('personnel', $newsReport->personnel)) ? 'selected' : '' }}>{{ $person }}</option>
+                @endforeach
+            </select>
             @error('personnel')
                 <span class="invalid-feedback d-block" role="alert">
                     <strong>{{ $message }}</strong>
@@ -63,29 +61,26 @@
         </div>
 
         <!-- Hora de Inicio -->
-<div class="form-group">
-    <label for="start_time">Hora de Inicio:</label>
-    <input type="time" name="start_time" id="start_time" class="form-control @error('start_time') is-invalid @enderror" 
-           value="{{ old('start_time', $newsReport->start_time) }}" required>
-    @error('start_time')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-</div>
+        <div class="form-group">
+            <label for="start_time">Hora de Inicio:</label>
+            <input type="time" name="start_time" id="start_time" class="form-control @error('start_time') is-invalid @enderror" value="{{ old('start_time', $newsReport->start_time) }}" required>
+            @error('start_time')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
-<!-- Hora de Finalización -->
-<div class="form-group">
-    <label for="end_time">Hora de Finalizado:</label>
-    <input type="time" name="end_time" id="end_time" class="form-control @error('end_time') is-invalid @enderror" 
-           value="{{ old('end_time', $newsReport->end_time) }}" required>
-    @error('end_time')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-</div>
-
+        <!-- Hora de Finalización -->
+        <div class="form-group">
+            <label for="end_time">Hora de Finalización:</label>
+            <input type="time" name="end_time" id="end_time" class="form-control @error('end_time') is-invalid @enderror" value="{{ old('end_time', $newsReport->end_time) }}" required>
+            @error('end_time')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
         <!-- Actividades Realizadas -->
         <div class="form-group">
@@ -97,7 +92,7 @@
                 </span>
             @enderror
         </div>
-
+        
         <!-- Otros -->
         <div class="form-group">
             <label for="others">Otros:</label>
@@ -110,8 +105,17 @@
         </div>
 
         <!-- Botones -->
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
         <a href="{{ route('news_reports.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+@endsection
+
 @endsection

@@ -5,7 +5,7 @@
     <h1>Parte de Novedades</h1>
 
     <div class="mb-3">
-        <strong>Fecha:</strong> {{ $newsReport->date }}
+        <strong>Fecha:</strong> {{ \Carbon\Carbon::parse($newsReport->date)->format('d/m/Y') }}
     </div>
 
     <div class="mb-3">
@@ -46,6 +46,7 @@
         <strong>Creado por:</strong> {{ $newsReport->user->name }}
     </div>
 
+    <a href="{{ route('news_reports.download_pdf', $newsReport->id) }}" class="btn btn-primary">Descargar</a>
     <a href="{{ route('news_reports.index') }}" class="btn btn-secondary">Regresar</a>
 </div>
 @endsection
