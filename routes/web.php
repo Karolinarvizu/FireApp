@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnitReportController;
 use App\Http\Controllers\InstallationReportController;
 use App\Http\Controllers\NewsReportController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +54,14 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
-    Route::middleware(['auth'])->group(function () {
-        Route::get('profile', [UserController::class, 'editProfile'])->name('profile.edit');
-        Route::post('profile', [UserController::class, 'updateProfile'])->name('profile.update');
-    });
+    
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('profile', [UserController::class, 'editProfile'])->name('profile.edit');
+    Route::post('profile', [UserController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/dashboard',[AdminController::class,'index'])->name('dashboard');
+});
+
+

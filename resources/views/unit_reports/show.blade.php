@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+
+@section('title', 'Mostrar-Unidades')
 
 @section('content')
 <div class="container">

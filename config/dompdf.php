@@ -266,7 +266,7 @@ return [
          *
          * @var bool
          */
-        'enable_remote' => false,
+        'enable_remote' => true,
         'allow_local_files' => true,
 
         /**

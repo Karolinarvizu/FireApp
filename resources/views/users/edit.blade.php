@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+
+@section('title', 'Editar-Usuarios')
 
 @section('content')
 <div class="container">
@@ -32,6 +34,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

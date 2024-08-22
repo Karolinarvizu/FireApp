@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+
+@section('title', 'Editar-Novedades')
 
 @section('content')
 <div class="container">
@@ -109,13 +111,19 @@
         <a href="{{ route('news_reports.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
-
-@section('scripts')
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
 @endsection
 
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#personnel').select2({
+            width: '100%'
+        });
+        $('#units').select2({
+            width: '100%'
+        });
+    });
+</script>
 @endsection

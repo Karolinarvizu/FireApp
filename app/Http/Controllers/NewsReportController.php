@@ -135,9 +135,13 @@ class NewsReportController extends Controller
 
     public function downloadPDF(NewsReport $newsReport)
     {
+        ini_set('max_execution_time', 120);
+        
         $commanderName = "Ángel Antonio Gámez Navarro"; 
 
         $pdf = PDF::loadView('documento', compact('newsReport', 'commanderName'));
+        $pdf->getDomPDF()->set_option('isRemoteEnabled', true);
+
         return $pdf->download('reporte_novedades.pdf');
     }
 

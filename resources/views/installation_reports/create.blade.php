@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+
+@section('title', 'Crear-Instalaciones')
 
 @section('content')
 <div class="container">

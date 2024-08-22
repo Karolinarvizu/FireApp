@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+
+@section('title', 'Crear-Unidades')
 
 @section('content')
 <div class="container">
@@ -23,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            <label>Reporte de Unidades</label>
+            <h1 class="mt-4"></h1>
             @foreach([13, 27, 02, 34, 03, 38, 14, 39] as $unitNumber)
             <div class="mb-3">
                 <label for="unit_{{ $unitNumber }}">Unidad {{ $unitNumber }}</label>
