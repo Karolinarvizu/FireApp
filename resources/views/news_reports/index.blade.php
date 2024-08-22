@@ -6,7 +6,7 @@
 <div class="container">
     <h1>Parte de Novedades</h1>
 
-    <!-- Mensaje de éxito -->
+    <!-- Mensaje de éxito que rollo miapa -->
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
