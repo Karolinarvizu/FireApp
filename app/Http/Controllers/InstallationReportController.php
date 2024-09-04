@@ -24,7 +24,7 @@ class InstallationReportController extends Controller
             ->when($searchDate, function ($query) use ($searchDate) {
                 return $query->where('date', $searchDate);
             })
-            ->get();
+            ->paginate(10);
 
         return view('installation_reports.index', compact('installationReports', 'searchDate'));
     }

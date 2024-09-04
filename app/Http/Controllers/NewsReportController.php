@@ -135,7 +135,7 @@ class NewsReportController extends Controller
 
     public function downloadPDF(NewsReport $newsReport)
     {
-        ini_set('max_execution_time', 120);
+
         
         $commanderName = "Ángel Antonio Gámez Navarro"; 
 

@@ -7,28 +7,28 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            color: #333;
             margin: 0;
             padding: 0;
-            color: #333;
         }
-        .container {
-            width: 100%;
+        .content {
             padding: 20px;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .header img {
-            max-height: 100px;
+            max-height: 80px;
         }
         .header h1 {
-            margin: 0;
+            margin: 10px 0 0;
             font-size: 24px;
             text-transform: uppercase;
         }
         .info-table {
             width: 100%;
+            margin: 0 auto;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
@@ -40,29 +40,39 @@
         .info-table th {
             background-color: #f4f4f4;
         }
-        .signature-section {
-            margin-top: 50px;
-            text-align: center;
+        .created-by {
+            font-weight: bold;
+            text-align: left;
+            margin: 20px auto;
+            width: 90%;
         }
-        .signature-section .commander-signature {
-            margin-top: 20px;
+        .signature-section {
+            text-align: center;
+            margin-top: 50px;
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
         }
         .signature-section .commander-signature p {
             margin: 0;
             font-size: 16px;
         }
+        tr, td, th {
+            page-break-inside: avoid;
+        }
+        @page {
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Header con el logo y título -->
+    <div class="content">
         <div class="header">
-        <img src="{{ asset('storage/images/logo.png') }}" >
+            <img src="{{ public_path('storage/images/loguito.jpg') }}" alt="Logo">
             <h1>Parte de Novedades</h1>
         </div>
 
-        <!-- Información del reporte -->
         <table class="info-table">
             <tr>
                 <th>Fecha</th>
@@ -98,13 +108,14 @@
             </tr>
         </table>
 
-        <!-- Sección para la firma del comandante -->
-        <div class="signature-section">
-            <p>____________________________________</p>
-            <div class="commander-signature">
-                <p>{{ $commanderName }}</p>
-                <p>Comandante</p>
-            </div>
+        <p class="created-by">Reporte creado por: {{ $newsReport->user->name }}</p>
+    </div>
+
+    <div class="signature-section">
+        <p>____________________________________</p>
+        <div class="commander-signature">
+            <p>{{ $commanderName }}</p>
+            <p>Comandante</p>
         </div>
     </div>
 

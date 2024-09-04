@@ -52,7 +52,7 @@
             <textarea class="form-control" id="notes" name="notes">{{ old('notes', $installationReport->notes) }}</textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Actualizar Reporte de Instalaciones</button>
+        <button type="submit" class="btn btn-primary">Actualizar Reporte</button>
         <a href="{{ route('installation_reports.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
