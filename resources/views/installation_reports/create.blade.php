@@ -1,46 +1,44 @@
 @extends('layouts.dashboard')
-
-@section('title', 'Crear-Instalaciones')
-
+@section('title', 'Crear Reporte de Instalaciones')
 @section('content')
-<div class="container">
-    <h1>Crear Reporte de Instalaciones</h1>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+<div class="container" style="max-width:600px">
+    <h1><i class="fas fa-plus-circle me-2" style="color:#cc2200;font-size:1rem"></i>Crear Reporte de Instalaciones</h1>
+    @if($errors->any())
+    <div class="alert alert-danger py-2">
+        <ul class="mb-0 ps-3">@foreach($errors->all() as $error)<li style="font-size:13px">{{ $error }}</li>@endforeach</ul>
+    </div>
     @endif
-
     <form method="POST" action="{{ route('installation_reports.store') }}">
         @csrf
-
-        <div class="form-group">
-            <label for="date">Fecha</label>
-            <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" required>
-        </div>
-
-        <div class="form-group">
-            <label>Salas Limpiadas</label>
-            @foreach(['Baño', 'Radio', 'Recamara', 'Cocina', 'Piso int./ext.'] as $room)
-            <div>
-                <input type="checkbox" id="{{ strtolower(str_replace(' ', '_', $room)) }}" name="cleaned_rooms[]" value="{{ $room }}">
-                <label for="{{ strtolower(str_replace(' ', '_', $room)) }}">{{ $room }}</label>
+        <div style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:10px;padding:20px;margin-bottom:12px;">
+            <div class="mb-3">
+                <label class="form-label" for="date">Fecha</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" required>
             </div>
-            @endforeach
+            <div class="mb-3">
+                <label class="form-label">Áreas atendidas</label>
+                <div class="row g-2 mt-1">
+                    @foreach($areas as $area)
+                    <div class="col-6 col-md-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="area_{{ $area->id }}"
+                                name="cleaned_rooms[]" value="{{ $area->name }}"
+                                {{ in_array($area->name, old('cleaned_rooms', [])) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="area_{{ $area->id }}" style="font-size:13px;">{{ $area->name }}</label>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="notes">Observaciones</label>
+                <textarea class="form-control" id="notes" name="notes" rows="3">{{ old('notes') }}</textarea>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="notes">Observaciones</label>
-            <textarea class="form-control" id="notes" name="notes">{{ old('notes') }}</textarea>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary btn-sm">Guardar reporte</button>
+            <a href="{{ route('installation_reports.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
         </div>
-
-        <button type="submit" class="btn btn-primary">Crear Reporte</button>
-        <a href="{{ route('installation_reports.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

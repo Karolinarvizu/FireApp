@@ -6,7 +6,6 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/sass/app.scss',
                 'resources/js/app.js',
             ],
             refresh: true,
@@ -23,6 +22,14 @@ export default defineConfig({
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
+        },
+    },
+    build: {
+        manifest: true, // Asegúrate de que el manifiesto esté activado para producción
+    },
+    server: {
+        proxy: {
+            '/build': 'http://localhost:3000', // Si usas hot-reload en desarrollo
         },
     },
 });

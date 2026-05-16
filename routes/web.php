@@ -7,6 +7,8 @@ use App\Http\Controllers\UnitReportController;
 use App\Http\Controllers\InstallationReportController;
 use App\Http\Controllers\NewsReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\AreaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return Auth::check() ? redirect('/home') : redirect('/login');
+    return Auth::check() ? redirect('/dashboard') : redirect('/login');
 });
 
 Auth::routes();
@@ -60,8 +62,13 @@ Route::group(['middleware' => ['role:admin']], function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('profile', [UserController::class, 'editProfile'])->name('profile.edit');
     Route::post('profile', [UserController::class, 'updateProfile'])->name('profile.update');
-
     Route::get('/dashboard',[AdminController::class,'index'])->name('dashboard');
+});
+
+// Módulo de Configuración (solo admin)
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::resource('config/vehicles', VehicleController::class)->names('config.vehicles');
+    Route::resource('config/areas', AreaController::class)->names('config.areas');
 });
 
 

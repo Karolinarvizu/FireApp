@@ -53,24 +53,30 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required'
-        ]);
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+        'password' => 'nullable|min:8|confirmed',
+        'role' => 'required'
+    ]);
 
-        $user->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'] ? Hash::make($validated['password']) : $user->password,
-        ]);
+    $data = [
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+    ];
 
-        $user->syncRoles($validated['role']);
-
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente.');
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
     }
+
+    $user->update($data);
+
+    $user->syncRoles($validated['role']);
+
+    return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente.');
+}
+
 
     public function destroy(User $user)
     {

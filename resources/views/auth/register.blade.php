@@ -1,131 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Registrarse</title>
-    <link href="css/styles.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse — FireApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
         body {
-            background-color: #f8f9fa; /* Fondo blanco */
-            color: #212529; /* Color de texto */
-            font-family: Arial, sans-serif;
+            margin: 0; min-height: 100vh; min-width: 320px;
+            background: #111;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 20px 0;
+            overflow-x: hidden;
         }
-        .card {
-            background-color: #ffffff; /* Fondo blanco para el card */
+        body::before {
+            content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 20% 50%, rgba(204,34,0,0.08) 0%, transparent 50%);
+            pointer-events: none;
         }
-        .card-header, .card-footer {
-            background-color: #f1f3f5; /* Fondo gris claro para el header y footer del card */
+        .register-wrap { width: 100%; max-width: 420px; padding: 20px; position: relative; z-index: 1; }
+        .login-logo { text-align: center; margin-bottom: 24px; }
+        .login-logo img { width: 70px; height: 70px; object-fit: contain; border-radius: 12px; }
+        .login-logo .app-name { display: block; font-size: 20px; font-weight: 600; color: #eee; margin-top: 8px; }
+        .login-logo .app-sub { font-size: 11px; color: #666; }
+        .login-card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 14px; padding: 28px; }
+        .login-card h2 { font-size: 16px; font-weight: 500; color: #ccc; margin-bottom: 22px; text-align: center; }
+        .form-label { font-size: 12px; color: #888; margin-bottom: 5px; }
+        .form-control { background: #111; border: 1px solid #2a2a2a; border-radius: 8px; color: #eee; font-size: 14px; padding: 10px 14px; min-height: 43px; transition: border-color 0.2s; }
+        .form-control:focus { background: #111; border-color: #cc2200; box-shadow: 0 0 0 3px rgba(204,34,0,0.15); color: #eee; }
+        .form-control::placeholder { color: #444; }
+        .form-control.is-invalid { border-color: #991111; }
+        .invalid-feedback { font-size: 11px; color: #ff6b6b; }
+        .btn-login { width: 100%; background: #cc2200; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 500; padding: 11px; margin-top: 6px; cursor: pointer; transition: background 0.2s; }
+        .btn-login:hover { background: #aa1a00; }
+        .login-footer { text-align: center; margin-top: 16px; font-size: 12px; color: #555; }
+        .login-footer a { color: #ff6b47; text-decoration: none; }
+        .login-footer a:hover { color: #ffaa33; }
+        @media (max-width: 480px) {
+            body { align-items: flex-start; padding: 14px 0; }
+            .register-wrap { padding: 12px; }
+            .login-logo { margin-bottom: 18px; }
+            .login-logo img { width: 64px; height: 64px; }
+            .login-card { padding: 20px; border-radius: 10px; }
         }
-        .text-muted {
-            color: #6c757d !important; /* Color gris para el texto en el footer */
-        }
-        .img-logo {
-            max-width: 150px;
-            height: auto;
-        }
-        .container-fluid {
-            max-width: 600px;
-            margin-top: 30px;
-        }
-        @media (max-width: 576px) {
-            .container-fluid {
-                margin-top: 15px; /* Reducir margen en pantallas pequeñas */
-            }
-            .img-logo {
-                max-width: 100px; /* Ajustar el tamaño del logo en pantallas pequeñas */
-            }
+        @media (max-height: 680px) {
+            body { align-items: flex-start; }
+            .login-logo { margin-bottom: 14px; }
         }
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
-    <div class="container-fluid d-flex flex-column justify-content-center align-items-center flex-grow-1">
-        <!-- Imagen antes del card -->
-        <div class="text-center mb-4">
-            <img src="images/loguito.jpg" alt="Logo" class="img-logo">
+<body>
+    <div class="register-wrap">
+        <div class="login-logo">
+            <img src="{{ asset('images/logo.png') }}" alt="FireApp Logo">
+            <span class="app-name">FireApp</span>
+            <div class="app-sub">Bomberos Voluntarios de Sonoyta</div>
         </div>
 
-        <!-- Card para el formulario de registro -->
-        <div class="card shadow-lg border-0 rounded-lg w-100">
-            <div class="card-header">
-                <h3 class="text-center font-weight-light my-4">Crear Cuenta</h3>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    <div class="row mb-3">
-                        <label for="name" class="col-md-4 col-form-label text-md-end">Nombre</label>
-
-                        <div class="col-12 col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
-
-                        <div class="col-12 col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="password" class="col-md-4 col-form-label text-md-end">Contraseña</label>
-
-                        <div class="col-12 col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirmar contraseña</label>
-
-                        <div class="col-12 col-md-6">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                        </div>
-                    </div>
-
-                    <div class="row mb-0">
-                        <div class="col-12 col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary w-100">
-                                Registrar
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer text-center py-3">
-                <div class="small">
-                    <a href="{{ route('login') }}">¿Ya tienes cuenta? Inicia sesión</a>
+        <div class="login-card">
+            <h2>Crear cuenta</h2>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label" for="name">Nombre completo</label>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Correo electrónico</label>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email') }}" required autocomplete="email">
+                    @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">Contraseña</label>
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                        name="password" required autocomplete="new-password">
+                    @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password-confirm">Confirmar contraseña</label>
+                    <input id="password-confirm" type="password" class="form-control"
+                        name="password_confirmation" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn-login">Registrarse</button>
+            </form>
+        </div>
+
+        <div class="login-footer">
+            ¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión</a>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,99 +1,99 @@
 @extends('layouts.dashboard')
-
-@section('title', 'Crear-Unidades')
-
+@section('title', 'Crear Reporte de Unidades')
 @section('content')
 <div class="container">
-    <h1>Crear Reporte de Unidades</h1>
+    <h1><i class="fas fa-plus-circle me-2" style="color:#cc2200;font-size:1rem"></i>Crear Reporte de Unidades</h1>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    @if($errors->any())
+    <div class="alert alert-danger py-2">
+        <ul class="mb-0 ps-3">@foreach($errors->all() as $error)<li style="font-size:13px">{{ $error }}</li>@endforeach</ul>
+    </div>
     @endif
 
     <form method="POST" action="{{ route('unit_reports.store') }}">
         @csrf
+        <div style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:10px;padding:20px;margin-bottom:12px;">
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="date">Fecha</label>
+                    <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="entrega_turno">Entrega de turno</label>
+                    <select name="entrega_turno" id="entrega_turno" class="form-control select2">
+                        <option value="">-- Seleccionar --</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->name }}" {{ old('entrega_turno') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="recepcion_turno">Recepción de turno</label>
+                    <select name="recepcion_turno" id="recepcion_turno" class="form-control select2">
+                        <option value="">-- Seleccionar --</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->name }}" {{ old('recepcion_turno') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="date">Fecha</label>
-            <input type="date" class="form-control" id="date" name="date" value="{{ old('date') }}" required>
-        </div>
-
-        <div class="form-group">
-            <h1 class="mt-4"></h1>
-            @foreach([13, 27, 02, 34, 03, 38, 14, 39] as $unitNumber)
-            <div class="mb-3">
-                <label for="unit_{{ $unitNumber }}">Unidad {{ $unitNumber }}</label>
-                <div>
-                    <label>Servicios</label>
-                    <div>
-                        <input type="checkbox" id="oil_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Aceite">
-                        <label for="oil_{{ $unitNumber }}">Aceite</label>
+            @foreach($vehicles as $vehicle)
+            @php $unitKey = 'unit_' . $loop->index; @endphp
+            <div style="border:1px solid #2a2a2a;border-radius:8px;padding:14px;margin-bottom:10px;">
+                <div style="font-size:13px;font-weight:500;color:#ff6b47;margin-bottom:10px;">
+                    <i class="fas fa-truck me-2" style="font-size:11px"></i>{{ $vehicle->name }}
+                </div>
+                <input type="hidden" name="units[{{ $unitKey }}][name]" value="{{ $vehicle->name }}">
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="form-label" style="font-size:11px;">Servicios verificados</label>
+                        <div class="row g-1">
+                            @foreach(['Aceite', 'Agua/radiador', 'Baterías', 'Planta de luz', 'Torreta', 'Luces', 'Limpieza/unidad', 'Llantas', 'Nivel de agua'] as $service)
+                            <div class="col-6 col-md-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                        id="{{ Str::slug($service) }}_{{ $loop->parent->index }}"
+                                        name="units[{{ $unitKey }}][services][]" value="{{ $service }}">
+                                    <label class="form-check-label" for="{{ Str::slug($service) }}_{{ $loop->parent->index }}" style="font-size:12px">{{ $service }}</label>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" id="water_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Agua/radiador">
-                        <label for="water_{{ $unitNumber }}">Agua/radiador</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="batteries_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Baterías">
-                        <label for="batteries_{{ $unitNumber }}">Baterías</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="light_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Planta de luz">
-                        <label for="light_{{ $unitNumber }}">Planta de luz</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="siren_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Torreta">
-                        <label for="siren_{{ $unitNumber }}">Torreta</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="lights_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Luces">
-                        <label for="lights_{{ $unitNumber }}">Luces</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="cleaning_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Limpieza/unidad">
-                        <label for="cleaning_{{ $unitNumber }}">Limpieza/unidad</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="tires_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Llantas">
-                        <label for="tires_{{ $unitNumber }}">Llantas</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="water_level_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][services][]" value="Nivel de agua">
-                        <label for="water_level_{{ $unitNumber }}">Nivel de agua</label>
+                    <div class="col-md-4 mt-2 mt-md-0">
+                        <label class="form-label" style="font-size:11px;">Gas/Diesel</label>
+                        <select class="form-control form-control-sm" name="units[{{ $unitKey }}][gas_diesel_status]">
+                            @foreach(['Empty', '1/8', '1/4', '3/8', '1/2', '5/8', '3/4', '7/8', 'Full'] as $level)
+                            <option value="{{ $level }}">{{ $level }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-                <div class="form-group">
-            <label for="gas_diesel_status_{{ $unitNumber }}">Estado de Gas/Diesel</label>
-            <select class="form-control" id="gas_diesel_status_{{ $unitNumber }}" name="units[unit_{{ $unitNumber }}][gas_diesel_status]">
-                <option value="Empty">Empty</option>
-                <option value="1/8">1/8</option>
-                <option value="1/4">1/4</option>
-                <option value="3/8">3/8</option>
-                <option value="1/2">1/2</option>
-                <option value="5/8">5/8</option>
-                <option value="3/4">3/4</option>
-                <option value="7/8">7/8</option>
-                <option value="Full">Full</option>
-            </select>
-        </div>
             </div>
             @endforeach
+
+            <div class="mt-3">
+                <label class="form-label" for="gas_diesel_notes">Otros / Observaciones</label>
+                <textarea class="form-control" id="gas_diesel_notes" name="gas_diesel_notes" rows="2">{{ old('gas_diesel_notes') }}</textarea>
+            </div>
         </div>
 
-
-        <div class="form-group">
-            <label for="gas_diesel_notes">Otros:</label>
-            <textarea class="form-control" id="gas_diesel_notes" name="gas_diesel_notes">{{ old('gas_diesel_notes') }}</textarea>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary btn-sm">Crear reporte</button>
+            <a href="{{ route('unit_reports.index') }}" class="btn btn-secondary btn-sm">Cancelar</a>
         </div>
-
-        <button type="submit" class="btn btn-primary">Crear Reporte</button>
-        <a href="{{ route('unit_reports.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
+@endsection
+@section('scripts')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#entrega_turno').select2({ width: '100%', placeholder: '-- Seleccionar --' });
+    $('#recepcion_turno').select2({ width: '100%', placeholder: '-- Seleccionar --' });
+});
+</script>
 @endsection

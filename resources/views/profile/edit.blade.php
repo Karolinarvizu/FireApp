@@ -1,35 +1,48 @@
 @extends('layouts.dashboard')
-
 @section('title', 'Editar Perfil')
-
 @section('content')
-<div class="container">
-    <h2>Editar Perfil</h2>
-    <a href="{{ url()->previous() }}" class="btn btn-secondary mb-3">Regresar</a>
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+<div class="container" style="max-width:600px">
+    <h1><i class="fas fa-user-edit me-2" style="color:#cc2200;font-size:1rem"></i>Editar perfil</h1>
+
+    @if(session('success'))
+        <div class="alert alert-success py-2">{{ session('success') }}</div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger py-2">
+            <ul class="mb-0 ps-3">
+                @foreach($errors->all() as $error)
+                    <li style="font-size:13px">{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
-    <form method="POST" action="{{ route('profile.update') }}">
-        @csrf
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Correo Electrónico</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <div class="form-group">
-            <label for="password_confirmation">Confirmar Contraseña</label>
-            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-        </div>
-        <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
-    </form>
+
+    <div style="background:#1e1e1e;border:1px solid #2a2a2a;border-radius:10px;padding:24px;">
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label" for="name">Nombre</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="email">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+            </div>
+            <hr style="border-color:#2a2a2a;margin:20px 0">
+            <div style="font-size:11px;color:#666;margin-bottom:12px;">Deja en blanco para no cambiar la contraseña</div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Nueva contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" autocomplete="new-password">
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="password_confirmation">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" autocomplete="new-password">
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary btn-sm">Guardar cambios</button>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
